@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     private float powerupStrength = 15.0f;
     public GameObject powerupIndicator;
 
+
+    public GameObject gameOverPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,15 +65,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && hasPowerup)
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
+            if (hasPowerup == true)
+            {
+                Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
+                Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position);
 
 
-            Debug.Log("Collided with " + collision.gameObject.name + " with power set to " + hasPowerup);
-            enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
+                Debug.Log("Collided with " + collision.gameObject.name + " with power set to " + hasPowerup);
+                enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
+            }
+            else
+                gameOverPanel.SetActive(true);
         }
+
+        if (collision.gameObject.CompareTag("Death Zone"))
+            gameOverPanel.SetActive(true);
+
     }
 
     public void OnCollisionStay(Collision collision)
