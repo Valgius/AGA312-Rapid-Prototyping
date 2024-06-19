@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 2.0f;
     public Ease moveEase;
 
+    public float shakeStrength = 0.4f;
+
     public bool isGrounded;
     Rigidbody rb;
 
@@ -75,6 +77,8 @@ public class PlayerController : MonoBehaviour
 
                 Debug.Log("Collided with " + collision.gameObject.name + " with power set to " + hasPowerup);
                 enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse);
+                Camera.main.DOShakePosition(moveTweenTime / 2, shakeStrength);
+
             }
             else
                 gameOverPanel.SetActive(true);
@@ -92,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator PowerupCountdownRoutine()
     {
-        yield return new WaitForSeconds(7);
+        yield return new WaitForSeconds(3);
         hasPowerup = false;
         powerupIndicator.gameObject.SetActive(false);
     }

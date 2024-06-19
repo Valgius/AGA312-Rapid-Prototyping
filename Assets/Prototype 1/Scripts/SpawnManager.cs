@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
@@ -10,10 +11,14 @@ public class SpawnManager : MonoBehaviour
     public int waveNumber = 1;
     public GameObject powerupPrefab;
 
+    public TMP_Text waveNumberText;
+
     // Start is called before the first frame update
     void Start()
     {
         SpawnEnemyWave(waveNumber);
+
+        SetWaveCountText();
 
         Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
     }
@@ -22,7 +27,12 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         enemyCount = FindObjectsOfType<Enemy>().Length;
-        if (enemyCount == 0) { waveNumber++;  SpawnEnemyWave(waveNumber); Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); }
+        if (enemyCount == 0) 
+        {   waveNumber++;
+            SetWaveCountText();
+            SpawnEnemyWave(waveNumber); 
+            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation); 
+        }
 
     }
 
@@ -40,5 +50,10 @@ public class SpawnManager : MonoBehaviour
         {
             Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
         }
+    }
+
+    void SetWaveCountText()
+    {
+        waveNumberText.text = "Wave: " + waveNumber;
     }
 }
