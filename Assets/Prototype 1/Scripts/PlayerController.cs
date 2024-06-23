@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,15 +22,19 @@ public class PlayerController : MonoBehaviour
     public bool hasPowerup;
     private float powerupStrength = 15.0f;
     public GameObject powerupIndicator;
-
+    float immunityTime;
+    public TMP_Text immunityText;
 
     public GameObject gameOverPanel;
+    public int health = 3;
+    public TMP_Text healthText;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
+        SetHealthText();
     }
 
     // Update is called once per frame
@@ -43,6 +48,7 @@ public class PlayerController : MonoBehaviour
             MovePlayer(Direction.South);
         if (Input.GetKeyDown(KeyCode.A))
             MovePlayer(Direction.West);
+
 
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -61,6 +67,7 @@ public class PlayerController : MonoBehaviour
             hasPowerup = true;
             powerupIndicator.gameObject.SetActive(true);
             Destroy(other.gameObject);
+            GetComponent<Renderer>().material.color = Color.red;
             StartCoroutine(PowerupCountdownRoutine());
         }
     }
@@ -81,11 +88,26 @@ public class PlayerController : MonoBehaviour
 
             }
             else
-                gameOverPanel.SetActive(true);
+            {
+                if (health == 0)
+                {
+                    gameOverPanel.SetActive(true);
+                    Time.timeScale = 0;
+                }
+
+                else
+                {
+                    health--;
+                    SetHealthText();
+                }
+            }
         }
 
         if (collision.gameObject.CompareTag("Death Zone"))
+        {
             gameOverPanel.SetActive(true);
+            Time.timeScale = 0;
+        }
 
     }
 
@@ -94,11 +116,18 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
     }
 
-    IEnumerator PowerupCountdownRoutine()
+    IEnumerator PowerupCountdownRoutine(float countDownValue = 4)
     {
-        yield return new WaitForSeconds(3);
+        immunityTime = countDownValue;
+        while (immunityTime > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            immunityTime--;
+            immunityText.text = "Immunity: " + immunityTime;
+        }
         hasPowerup = false;
         powerupIndicator.gameObject.SetActive(false);
+        GetComponent<Renderer>().material.color = Color.white;
     }
 
     void MovePlayer(Direction _direction)
@@ -118,5 +147,10 @@ public class PlayerController : MonoBehaviour
                 player.transform.DOMoveX(player.transform.position.x - moveDistance, moveTweenTime).SetEase(moveEase);
                 break;
         }
+    }
+
+    void SetHealthText()
+    {
+        healthText.text = "Health: " + health;
     }
 }
