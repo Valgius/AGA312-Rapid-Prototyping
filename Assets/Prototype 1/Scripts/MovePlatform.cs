@@ -5,9 +5,19 @@ using UnityEngine;
 public class MovePlatform : MonoBehaviour
 {
 
-        public Vector3 pointB;
+    public Vector3 pointB;
+    private int enemyCount;
 
-        IEnumerator Start()
+    void Update()
+    {
+        enemyCount = FindObjectsOfType<Enemy>().Length;
+        if (enemyCount == 0)
+        {
+            var pointA = transform.position;
+        }
+
+    }
+    IEnumerator Start()
         {
             var pointA = transform.position;
             while (true)
