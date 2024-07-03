@@ -20,10 +20,16 @@ public class Playground : GameBehaviour
     private int score = 0;
     public int scoreBonus = 100;
 
+    [Header("Timer")]
+    public Timer timer;
+    public TMP_Text timerText;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        timer.StartTimer(60, TimerDirection.CountUp);
+
         ExecuteAfterSeconds(2, () =>
         {
             player.transform.localScale = Vector3.one * 2;
@@ -35,15 +41,29 @@ public class Playground : GameBehaviour
         {
             print("One Frame Later");
         });
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        timerText.text = timer.GetTime().ToString("F2");
+        if(Input.GetKeyDown(KeyCode.C))
         {
-            player.GetComponent<Renderer>().material.color = ColorX.GetRandomColour();
+            if (timer.timerDirection == TimerDirection.CountUp)
+                timer.ChangeTimerDirection(TimerDirection.CountDown);
+            else
+                timer.ChangeTimerDirection(TimerDirection.CountUp);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            player.GetComponent<Renderer>().material.color = ColorX.GetRandomColour();
+
+        if (Input.GetKeyDown(KeyCode.P))
+            timer.ToggleTimerPause();
+
+        if (timer.TimeExpired())
+            Debug.Log("Time Expired");
 
         if (Input.GetKeyDown(KeyCode.W))
             MovePlayer(Direction.North);
