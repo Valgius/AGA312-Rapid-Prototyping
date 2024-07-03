@@ -25,17 +25,9 @@ public class PlayerMovement : Singleton<PlayerMovement>
 
     private CharacterController controller;
 
-    [Header("Prototype 2")]
-    public bool hasWater;
-    public bool hasFertiliser;
-    public TMP_Text itemText;
-
-
-
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        itemText.text = "Item: None";
     }
 
     private void Update()
@@ -105,32 +97,5 @@ public class PlayerMovement : Singleton<PlayerMovement>
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (other.CompareTag("Water"))
-            {
-                hasWater = true;
-                hasFertiliser = false;
-                itemText.text = "Item: Water";
-
-}
-
-            if (other.CompareTag("Fertiliser"))
-            {
-                hasWater = false;
-                hasFertiliser = true;
-                itemText.text = "Item: Fertiliser";
-            }
-        }
-    }
-
-    public void noitems()
-    {
-        hasWater = true;
-        hasFertiliser = true;
     }
 }

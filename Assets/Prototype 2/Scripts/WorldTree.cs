@@ -27,7 +27,7 @@ public class WorldTree : MonoBehaviour
     public GameObject objectToScale;
     public float scaleFactor = 1.5f; // Factor by which to scale the object
 
-    public PlayerMovement playerMovement;
+    public ItemScript items;
     public GameObject gameOverPanel;
 
     // Start is called before the first frame update
@@ -48,7 +48,7 @@ public class WorldTree : MonoBehaviour
         if (otherGameObject != null)
         {
             // Get the OtherScript component
-            playerMovement = otherGameObject.GetComponent<PlayerMovement>();
+            items = otherGameObject.GetComponent<ItemScript>();
         }
     }
 
@@ -123,7 +123,7 @@ public class WorldTree : MonoBehaviour
             {
                 Debug.LogWarning("Collided with Player");
 
-                if (playerMovement != null && playerMovement.hasWater == true)
+                if (items != null && items.hasWater == true)
                 {
                     waterLevel = maxWaterLevel;
                 }
@@ -132,7 +132,7 @@ public class WorldTree : MonoBehaviour
                     Debug.LogWarning("No Water");
                 }
 
-                if (playerMovement != null && playerMovement.hasFertiliser == true)
+                if (items != null && items.hasFertiliser == true)
                 {
                     fertiliser = maxFertiliser;
                 }
