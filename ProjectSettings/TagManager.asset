@@ -7,11 +7,13 @@ TagManager:
   - Powerup
   - Enemy
   - Death Zone
+  - Water
+  - Fertiliser
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
