@@ -107,8 +107,8 @@ public class WorldTree : MonoBehaviour
                 objectToScale.transform.localScale *= scaleFactor;
 
                 // Moves the tree up by scale ammount
-                Vector3 newPosition = new Vector3(0, transform.localScale.y, 0);
-                transform.position = newPosition;
+                //Vector3 newPosition = new Vector3(0, transform.localScale.y, 0);
+                //transform.position = newPosition;
             }
             else
             {
