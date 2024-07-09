@@ -9,6 +9,7 @@ TagManager:
   - Death Zone
   - Water
   - Fertiliser
+  - Tree
   layers:
   - Default
   - TransparentFX

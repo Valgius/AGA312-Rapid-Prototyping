@@ -11,12 +11,11 @@ public class ItemScript : MonoBehaviour
     public TMP_Text itemText;
 
     public PlayerMovement playerMovement;
-    public WorldTree worldTree;
+    public WorldTree worldtree;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        worldTree = GetComponent<WorldTree>();
         ItemsBothFalse();
     }
 
@@ -37,6 +36,21 @@ public class ItemScript : MonoBehaviour
                 ItemsBothFalse();
                 ToggleFertiliser();
                 itemText.text = "Item: Fertiliser";
+            }
+
+            if (other.CompareTag("Tree"))
+            {
+                if (hasWater == true)
+                {
+                    GameObject.Find("WorldTree").GetComponent<WorldTree>().FillWater();
+                    ItemsBothFalse();
+                }
+                if (hasFertiliser == true)
+                {
+                    GameObject.Find("WorldTree").GetComponent<WorldTree>().FillFertiliser();
+                    ItemsBothFalse();
+                    itemText.text = "Item: None";
+                }
             }
         }
     }

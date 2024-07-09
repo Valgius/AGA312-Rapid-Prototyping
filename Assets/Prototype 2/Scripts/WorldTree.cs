@@ -23,42 +23,36 @@ public class WorldTree : MonoBehaviour
     public float maxCountdownTime;
     public float reduceInterval;
     private float timer;
+    public float size;
 
     public GameObject objectToScale;
     public float scaleFactor = 1.5f; // Factor by which to scale the object
 
-    public ItemScript items;
     public GameObject gameOverPanel;
+    public GameObject winPanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        waterLevel = maxWaterLevel;
-        fertiliser = maxFertiliser;
-        treeHealth = maxTreeHealth;
-
-        treeHealthText.text = ("Health: " + treeHealth);
-        fertiliserText.text = ("Fertiliser: " + fertiliser);
-        waterLevelText.text = ("Water: " + waterLevel);
+        FillFertiliser();
+        FillWater();
+        FillHealth();
 
         CountdownTime = maxCountdownTime;
 
-        // Find the GameObject with OtherScript attached
-        GameObject otherGameObject = GameObject.Find("Player"); // Replace with actual GameObject name or use tags
-        if (otherGameObject != null)
-        {
-            // Get the OtherScript component
-            items = otherGameObject.GetComponent<ItemScript>();
-        }
+        gameOverPanel.SetActive(false);
+        winPanel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (treeHealth == 0)
         {
-            ScaleObject();
+            gameOverPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
+
 
         if (CountdownTime > 0)
         {
@@ -67,9 +61,15 @@ public class WorldTree : MonoBehaviour
         else
         {
             CountdownTime = maxCountdownTime;
-            if (fertiliser > 0)
+            if (fertiliser > 0 && size < 12 )
             {
                 ScaleObject();
+                size++;
+            }
+            if (size > 12)
+            {
+                winPanel.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
             }
         }
 
@@ -117,34 +117,29 @@ public class WorldTree : MonoBehaviour
         }
     }
 
-        void OnCollisionEnter(Collision collision)
+        void OnCollisionStay(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                Debug.LogWarning("Collided with Player");
-
-                if (items != null && items.hasWater == true)
-                {
-                    waterLevel = maxWaterLevel;
-                }
-                else
-                {
-                    Debug.LogWarning("No Water");
-                }
-
-                if (items != null && items.hasFertiliser == true)
-                {
-                    fertiliser = maxFertiliser;
-                }
-                else
-                {
-                    Debug.LogWarning("No Fertiliser");
-                }
-            }
-
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 Debug.LogWarning("Enemy.");
             }
         }
+
+    public void FillFertiliser()
+    {
+        fertiliser = maxFertiliser;
+        fertiliserText.text = ("Fertiliser: " + fertiliser);
+    }
+
+    public void FillWater()
+    {
+        waterLevel = maxWaterLevel;
+        waterLevelText.text = ("Water: " + waterLevel);
+    }
+
+    public void FillHealth()
+    {
+        treeHealth = maxTreeHealth;
+        treeHealthText.text = ("Health: " + treeHealth);
+    }
 }

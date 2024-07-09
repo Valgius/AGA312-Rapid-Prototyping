@@ -98,4 +98,13 @@ public class PlayerMovement : Singleton<PlayerMovement>
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);;
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+            if (Input.GetKey(KeyCode.E))
+                Destroy(collision.gameObject);
+            else
+                return;
+    }
 }
