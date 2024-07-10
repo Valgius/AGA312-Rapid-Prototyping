@@ -1072,7 +1072,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
   m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -1334,6 +1334,8 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 325698563}
   - {fileID: 368640115}
+  worldTree: {fileID: 0}
+  size: 0
   spawnInterval: 3
 --- !u!1 &762175859
 GameObject:
@@ -4142,14 +4144,14 @@ MonoBehaviour:
   treeHealth: 0
   maxWaterLevel: 100
   maxFertiliser: 100
-  maxTreeHealth: 100
+  maxTreeHealth: 2000
   waterLevelText: {fileID: 1622683742}
   fertiliserText: {fileID: 1629946508}
   treeHealthText: {fileID: 1511652495}
   CountdownTime: 0
   maxCountdownTime: 10
   reduceInterval: 0.5
-  size: 0
+  size: 11
   objectToScale: {fileID: 1695326680}
   scaleFactor: 1.5
   gameOverPanel: {fileID: 459387939}
@@ -5337,79 +5339,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: dc3de67326229ab459a1320acc34b8ea, type: 3}
---- !u!1001 &980059937513517125
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 960123412106060379, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: worldtree
-      value: 
-      objectReference: {fileID: 1695326681}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.4192305
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -14.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704666936462692946, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6682790186434849254, guid: ea26f8bbb2c0ec1488668039d5b06935,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ea26f8bbb2c0ec1488668039d5b06935, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -5422,5 +5351,4 @@ SceneRoots:
   - {fileID: 622451629}
   - {fileID: 1794015516}
   - {fileID: 622089755}
-  - {fileID: 980059937513517125}
   - {fileID: 663558315}

@@ -6,14 +6,12 @@ public class EnemyBehaviour : MonoBehaviour
 {
     public float speed;
     private GameObject worldTree;
-    public WorldTree worldtree;
 
 
     // Start is called before the first frame update
     void Start()
     {
         worldTree = GameObject.Find("EnemyObjective");
-
     }
 
     // Update is called once per frame

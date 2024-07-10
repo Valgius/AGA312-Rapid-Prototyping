@@ -6,13 +6,16 @@ public class EnemySpawn : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public Transform[] spawnPoints;
+    public WorldTree worldTree;
+    public int size;
 
-    public float spawnInterval = 3f; // Interval between spawns
+    public int spawnInterval = 3; // Interval between spawns
     private float spawnTimer;        // Timer to count when to spawn next enemy
 
     void Start()
     {
         spawnTimer = spawnInterval;
+
     }
 
     void Update()
@@ -26,6 +29,9 @@ public class EnemySpawn : MonoBehaviour
             SpawnEnemy();
             spawnTimer = spawnInterval;
         }
+
+        size = GameObject.Find("WorldTree").GetComponent<WorldTree>().size;
+        spawnInterval = size;
     }
 
     void SpawnEnemy()

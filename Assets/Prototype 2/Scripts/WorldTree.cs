@@ -23,7 +23,7 @@ public class WorldTree : MonoBehaviour
     public float maxCountdownTime;
     public float reduceInterval;
     private float timer;
-    public float size;
+    public int size;
 
     public GameObject objectToScale;
     public float scaleFactor = 1.5f; // Factor by which to scale the object
@@ -47,7 +47,7 @@ public class WorldTree : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (treeHealth == 0)
+        if (treeHealth < 0)
         {
             gameOverPanel.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
@@ -61,12 +61,12 @@ public class WorldTree : MonoBehaviour
         else
         {
             CountdownTime = maxCountdownTime;
-            if (fertiliser > 0 && size < 12 )
+            if (fertiliser > 0 && size > 0 )
             {
                 ScaleObject();
-                size++;
+                size--;
             }
-            if (size > 12)
+            if (size < 0)
             {
                 winPanel.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
@@ -122,7 +122,6 @@ public class WorldTree : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             StartCoroutine(Damage());
-
         }
     }
 
@@ -146,7 +145,6 @@ public class WorldTree : MonoBehaviour
 
     public IEnumerator Damage()
     {
-        Debug.LogWarning("Enemy");
         treeHealth--;
         yield return new WaitForSeconds(5);
     }
