@@ -117,13 +117,14 @@ public class WorldTree : MonoBehaviour
         }
     }
 
-        void OnCollisionStay(Collision collision)
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                Debug.LogWarning("Enemy.");
-            }
+            StartCoroutine(Damage());
+
         }
+    }
 
     public void FillFertiliser()
     {
@@ -141,5 +142,12 @@ public class WorldTree : MonoBehaviour
     {
         treeHealth = maxTreeHealth;
         treeHealthText.text = ("Health: " + treeHealth);
+    }
+
+    public IEnumerator Damage()
+    {
+        Debug.LogWarning("Enemy");
+        treeHealth--;
+        yield return new WaitForSeconds(5);
     }
 }
