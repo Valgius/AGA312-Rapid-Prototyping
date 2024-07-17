@@ -19,7 +19,7 @@ public class TargetScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             UpdateScore();
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 

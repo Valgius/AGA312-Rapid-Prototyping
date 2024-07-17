@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameBehaviour : MonoBehaviour
 {
     protected static PlayerMovement _PLAYER { get { return PlayerMovement.INSTANCE; } }
+    protected static SaveManager _SAVE { get { return SaveManager.INSTANCE; } }
 
     #region Coroutine Helpers
 

@@ -16,6 +16,7 @@ public class Playground : GameBehaviour
 
     [Header("UI")]
     public TMP_Text scoreText;
+    public TMP_Text highScoreText;
     public Ease scoreEase;
     private int score = 0;
     public int scoreBonus = 100;
@@ -28,6 +29,9 @@ public class Playground : GameBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player.transform.position = _SAVE.GetLastCheckpoint();
+        player.GetComponent<Renderer>().material.color = _SAVE.GetColour();
+
         timer.StartTimer(60, TimerDirection.CountUp);
 
         ExecuteAfterSeconds(2, () =>
@@ -42,6 +46,9 @@ public class Playground : GameBehaviour
             print("One Frame Later");
         });
 
+        highScoreText.text = "High Score:" + _SAVE.GetHighestScore().ToString();
+
+        scoreText.text = "Score:" + _SAVE.GetScore().ToString();
     }
 
     // Update is called once per frame
@@ -73,6 +80,7 @@ public class Playground : GameBehaviour
             MovePlayer(Direction.South);
         if (Input.GetKeyDown(KeyCode.A))
             MovePlayer(Direction.West);
+
     }
 
     void MovePlayer(Direction _direction)
@@ -108,6 +116,7 @@ public class Playground : GameBehaviour
                 });
                 break;
         }
+        _SAVE.SetLastPosition(player.transform.position);
         ChangeColour();
     }
 
@@ -118,6 +127,8 @@ public class Playground : GameBehaviour
 
     void ChangeColour()
     {
+        Color c = ColorX.GetRandomColour();
+
         player.GetComponent<Renderer>().material.DOColor(ColorX.GetRandomColour(), moveTweenTime);
     }
 
@@ -125,6 +136,7 @@ public class Playground : GameBehaviour
     {
         TweenX.TweenNumbers(scoreText, score, score + scoreBonus, 1, scoreEase);
         score = score + scoreBonus;
+        _SAVE.SetScore(score);
     }
 
     public int health = 1000000;

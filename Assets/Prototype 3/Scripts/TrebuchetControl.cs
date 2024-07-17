@@ -22,15 +22,15 @@ public class TrebuchetControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
-            weightMass = weightMass + 50;
+            weightMass = weightMass + 1;
             UpdateWeightMass();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            weightMass = weightMass - 50;
+            weightMass = weightMass - 1;
             UpdateWeightMass();
         }
 
