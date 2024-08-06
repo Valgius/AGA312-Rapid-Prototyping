@@ -24,14 +24,23 @@ public class EnemySpawn : MonoBehaviour
         spawnTimer -= Time.deltaTime;
 
         // If the timer has expired, spawn an enemy and reset the timer
-        if (spawnTimer <= 0f)
+        if (spawnTimer <= 0f && size > 0)
         {
             SpawnEnemy();
             spawnTimer = spawnInterval;
         }
 
         size = GameObject.Find("WorldTree").GetComponent<WorldTree>().size;
-        spawnInterval = size;
+
+        if (size >= 10)
+            spawnInterval = size - 1;
+        if (size <= 9 && size >= 5)
+            spawnInterval = size;
+        if(size <= 4)
+            spawnInterval = size + 1;
+
+
+
     }
 
     void SpawnEnemy()
