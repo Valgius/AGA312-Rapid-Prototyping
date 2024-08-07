@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CustomerGenerator : MonoBehaviour
@@ -10,6 +11,9 @@ public class CustomerGenerator : MonoBehaviour
     private int numItems;
 
     public CashierManager cashier;
+
+    public Image uiImage;                  // Reference to the UI Image component
+    public Sprite[] sprites;               // Array to hold all the sprites
 
     // Dictionary to hold items and their prices
     private Dictionary<string, int> itemPrices = new Dictionary<string, int>
@@ -30,6 +34,8 @@ public class CustomerGenerator : MonoBehaviour
 
     public void GenerateCustomer()
     {
+        ChangeSprite();
+
         switch (cashier.difficulty)
         {
             case Difficulty.Easy:
@@ -63,5 +69,14 @@ public class CustomerGenerator : MonoBehaviour
 
         // Store the total price in a variable or send it to another script
         // e.g., GameManager.Instance.SetTotalPrice(totalPrice);
+    }
+
+    void ChangeSprite()
+    {
+        if (sprites.Length == 0)
+            return;
+
+        int randomIndex = Random.Range(0, sprites.Length);
+       uiImage.sprite = sprites[randomIndex];
     }
 }
