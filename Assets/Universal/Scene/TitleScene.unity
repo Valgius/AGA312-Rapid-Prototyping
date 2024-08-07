@@ -548,7 +548,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mySplashImage
       value: 
-      objectReference: {fileID: 21300000, guid: de6dc5806eab18f459f0034378572f31,
+      objectReference: {fileID: 21300000, guid: b33ca7e7e87b7bc4c8178c7ea64a3f23,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1108,7 +1108,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mySplashImage
       value: 
-      objectReference: {fileID: 21300000, guid: 0c67f5ef7903bae4893dea40742bd2e3,
+      objectReference: {fileID: 21300000, guid: 782742c7cbc92c540a4312b861b5e798,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

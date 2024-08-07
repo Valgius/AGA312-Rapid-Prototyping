@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class WorldTree : MonoBehaviour
@@ -66,8 +67,9 @@ public class WorldTree : MonoBehaviour
                 ScaleObject();
                 size--;
             }
-            if (size < 0)
+            if (size == 0)
             {
+                Time.timeScale = 0;
                 winPanel.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
             }
@@ -90,7 +92,10 @@ public class WorldTree : MonoBehaviour
             {
                 treeHealth--;
                 if (treeHealth <= 0)
+                {
+                    Time.timeScale = 0;
                     gameOverPanel.SetActive(true);
+                }
             }
 
             treeHealthText.text = ("Health: " + treeHealth);
