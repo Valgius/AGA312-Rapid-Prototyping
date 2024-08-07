@@ -13,7 +13,7 @@ public class UpdateTimerP4 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer.StartTimer(60, TimerDirection.CountDown);
+        timer.StartTimer(timer.startTime, TimerDirection.CountDown);
         endGame.SetActive(false);
     }
 

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum Difficulty { Easy, Medium, Hard}
 public class CustomerGenerator : MonoBehaviour
 {
     public GameObject customerPanel;
     public TMP_Text customerText;
-    public Difficulty difficulty;
     private int numItems;
+
+    public CashierManager cashier;
 
     // Dictionary to hold items and their prices
     private Dictionary<string, int> itemPrices = new Dictionary<string, int>
@@ -24,24 +24,20 @@ public class CustomerGenerator : MonoBehaviour
     public void Start()
     {
         GenerateCustomer();
+
+
     }
 
     public void GenerateCustomer()
     {
-        switch (difficulty)
+        switch (cashier.difficulty)
         {
             case Difficulty.Easy:
                 numItems = Random.Range(2, 3); // Number of items per customer
                 break;
-        }
-        switch (difficulty)
-        {
             case Difficulty.Medium:
                 numItems = Random.Range(3, 4); // Number of items per customer
                 break;
-        }
-        switch (difficulty)
-        {
             case Difficulty.Hard:
                 numItems = Random.Range(4, 5); // Number of items per customer
                 break;

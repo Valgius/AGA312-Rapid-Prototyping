@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting.Antlr3.Runtime;
+
+public enum Difficulty { Easy, Medium, Hard }
 
 public class CashierManager : MonoBehaviour
 {
@@ -10,8 +13,17 @@ public class CashierManager : MonoBehaviour
     public TMP_Text feedbackText;
     public float correctTotalPrice;
 
+    public Difficulty difficulty;
+    public GameObject difficultyPanel;
+
     public int customerCount = 0;
     public TMP_Text customerCountText;
+
+    public void Start()
+    {
+        Time.timeScale = 0;
+        difficultyPanel.SetActive(true);
+    }
 
     public void SubmitAmount()
     {
@@ -43,5 +55,26 @@ public class CashierManager : MonoBehaviour
     {
         // Assuming CustomerGenerator is attached to the same object
         GetComponent<CustomerGenerator>().GenerateCustomer();
+    }
+
+    public void SetEasy()
+    {
+        difficulty = Difficulty.Easy;
+        difficultyPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void SetMedium()
+    {
+        difficulty = Difficulty.Medium;
+        difficultyPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void SetHard()
+    {
+        difficulty = Difficulty.Hard;
+        difficultyPanel.SetActive(false);
+        Time.timeScale = 1;
     }
 }
