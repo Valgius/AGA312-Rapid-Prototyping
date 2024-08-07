@@ -8,7 +8,7 @@ public class Timer : GameBehaviour
 {
     public TimerDirection timerDirection;
     public float startTime = 0;
-    float currentTime;
+    public float currentTime;
     bool isTiming = false;
     float timeLimit = 0;
     bool hasTimeLimit = false;
@@ -21,7 +21,7 @@ public class Timer : GameBehaviour
         //if the timerDirection == TimerDirection.CountUp, increment the current time, else decrement the current time
         currentTime = timerDirection == TimerDirection.CountUp ? currentTime += Time.deltaTime : currentTime -= Time.deltaTime;
 
-        if (currentTime < 0) { currentTime = 0; StopTimer(); }
+        //if (currentTime < 0) { currentTime = 0; StopTimer(); }
     }
 
     /// <summary>
