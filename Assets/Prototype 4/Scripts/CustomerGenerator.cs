@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Diagnostics;
 
 public class CustomerGenerator : MonoBehaviour
 {
     public GameObject customerPanel;
     public TMP_Text customerText;
     private int numItems;
+    public int priceInt;
 
     public CashierManager cashier;
 
@@ -28,8 +30,6 @@ public class CustomerGenerator : MonoBehaviour
     public void Start()
     {
         GenerateCustomer();
-
-
     }
 
     public void GenerateCustomer()
@@ -64,12 +64,14 @@ public class CustomerGenerator : MonoBehaviour
         }
 
         GetComponent<CashierManager>().SetTotalPrice(totalPrice);
+        GetComponent<CashierManager>().GenerateCustomerChange();
         //customerInfo += $"Total: ${totalPrice:F2}";
         customerText.text = customerInfo;
 
         // Store the total price in a variable or send it to another script
         // e.g., GameManager.Instance.SetTotalPrice(totalPrice);
     }
+
 
     void ChangeSprite()
     {

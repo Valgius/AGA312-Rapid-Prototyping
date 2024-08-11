@@ -22,12 +22,11 @@ public class UpdateTimerP4 : MonoBehaviour
     {
         timerText.text = timer.GetTime().ToString("Time: 0");
 
-       /* if (timer.currentTime < 0)
+        if (timer.currentTime <= 0)
         {
-            endGame.SetActive(true);
-            timer.currentTime = 0; 
             timer.StopTimer();
-        }*/
+            timer.currentTime = 0;
+            endGame.SetActive(true);
+        }
     }
-
 }
