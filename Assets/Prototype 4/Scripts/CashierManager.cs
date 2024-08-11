@@ -10,7 +10,6 @@ public enum Difficulty { Easy, Medium, Hard }
 public class CashierManager : MonoBehaviour
 {
     public TMP_InputField amountInput;
-    public TMP_Text feedbackText;
     public float correctTotalPrice;
     public bool change;
 
@@ -41,35 +40,38 @@ public class CashierManager : MonoBehaviour
     {
         if (float.TryParse(amountInput.text, out float enteredAmount))
         {
+            // Check if the entered amount matches the correct total price
             if (enteredAmount == correctTotalPrice)
+            {
                 if (change == false)
                 {
                     inCorrectAnswer.SetActive(false);
-                    enteredAmount = 0;
                     customerText = GetComponent<CustomerGenerator>().customerText;
                     customerText.text = "Price was " + correctTotalPrice + ". Here is " + ammountGiven + ". What is my Change?";
                     change = true;
+                    amountInput.text = null;
+                    StartCoroutine(CorrectAnswer());
+                    return;
                 }
-                else
-                {
-                    inCorrectAnswer.SetActive(true);
-                }
+            }
 
-            if (enteredAmount == correctChange)
+             // Check if the entered amount matches the correct change
+             else if (enteredAmount == correctChange)
+            {
                 if (change == true)
                 {
                     inCorrectAnswer.SetActive(false);
                     correctAnswer.SetActive(true);
                     customerCount++;
                     customerCountText.text = "Customers Served " + customerCount;
-                    enteredAmount = 0;
                     StartCoroutine(WaitAndGenerateNewCustomer());
                     change = false;
+                    amountInput.text = null;
+                    return;
                 }
-                else
-                {
-                    inCorrectAnswer.SetActive(true);
-                }
+            }
+
+            StartCoroutine(IncorrectAnswer());
         }
     }
 
@@ -85,11 +87,23 @@ public class CashierManager : MonoBehaviour
 
     private IEnumerator WaitAndGenerateNewCustomer()
     {
-        yield return new WaitForSeconds(0.3f); // Wait for the specified duration
-        correctAnswer.SetActive(false);
-        inCorrectAnswer.SetActive(false);
+        StartCoroutine(CorrectAnswer());
         yield return new WaitForSeconds(0.2f); // Wait for the specified duration
         GenerateNewCustomer();
+    }
+
+    private IEnumerator IncorrectAnswer()
+    {
+        inCorrectAnswer.SetActive(true);
+        yield return new WaitForSeconds(0.5f); // Wait for the specified duration
+        inCorrectAnswer.SetActive(false);
+    }
+
+    private IEnumerator CorrectAnswer()
+    {
+        correctAnswer.SetActive(true);
+        yield return new WaitForSeconds(0.5f); // Wait for the specified duration
+        correctAnswer.SetActive(false);
     }
 
     private void GenerateNewCustomer()
@@ -103,15 +117,15 @@ public class CashierManager : MonoBehaviour
         switch (GetComponent<CustomerGenerator>().cashier.difficulty)
         {
             case Difficulty.Easy:
-                ammountGiven = Random.Range((int)correctTotalPrice, ((int)correctTotalPrice + 5));
+                ammountGiven = Random.Range((int)correctTotalPrice + 1, (int)correctTotalPrice + 5);
                 correctChange = ammountGiven - correctTotalPrice;
                 break;
             case Difficulty.Medium:
-                ammountGiven = Random.Range((int)correctTotalPrice, ((int)correctTotalPrice + 10));
+                ammountGiven = Random.Range((int)correctTotalPrice + 1, (int)correctTotalPrice + 10);
                 correctChange = ammountGiven - correctTotalPrice;
                 break;
             case Difficulty.Hard:
-                ammountGiven = Random.Range((int)correctTotalPrice, ((int)correctTotalPrice + 15));
+                ammountGiven = Random.Range((int)correctTotalPrice + 1, (int)correctTotalPrice + 15);
                 correctChange = ammountGiven - correctTotalPrice;
                 break;
         }

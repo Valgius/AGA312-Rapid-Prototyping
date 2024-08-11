@@ -27,6 +27,8 @@ public class CustomerGenerator : MonoBehaviour
         { "Nuggets", 6 }
     };
 
+
+
     public void Start()
     {
         GenerateCustomer();
