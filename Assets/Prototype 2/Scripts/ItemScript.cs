@@ -13,6 +13,9 @@ public class ItemScript : MonoBehaviour
     public PlayerMovement playerMovement;
     public WorldTree worldtree;
 
+    public GameObject fertiliser;
+    public GameObject water;
+
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -28,6 +31,7 @@ public class ItemScript : MonoBehaviour
                 ItemsBothFalse();
                 ToggleWater();
                 itemText.text = "Item: Water";
+                water.SetActive(true);
 
             }
 
@@ -36,6 +40,7 @@ public class ItemScript : MonoBehaviour
                 ItemsBothFalse();
                 ToggleFertiliser();
                 itemText.text = "Item: Fertiliser";
+                fertiliser.SetActive(true);
             }
 
             if (other.CompareTag("Tree"))
@@ -70,5 +75,7 @@ public class ItemScript : MonoBehaviour
         hasWater = false;
         hasFertiliser = false;
         itemText.text = "Item: None";
+        fertiliser.SetActive(false);
+        water.SetActive(false);
     }
 }

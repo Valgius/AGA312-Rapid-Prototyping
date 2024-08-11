@@ -94,6 +94,7 @@ public class WorldTree : MonoBehaviour
                 if (treeHealth <= 0)
                 {
                     Time.timeScale = 0;
+                    timer = 0;
                     gameOverPanel.SetActive(true);
                 }
             }
