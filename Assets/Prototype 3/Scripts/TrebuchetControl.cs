@@ -8,6 +8,7 @@ public class TrebuchetControl : MonoBehaviour
     public Rigidbody weightRB;
     public GameObject weight;
     public GameObject ammo;
+    public GameObject arm;
 
     public bool isLoaded;
     public int weightMass;
@@ -18,14 +19,24 @@ public class TrebuchetControl : MonoBehaviour
     private float currentRotation = 0f; // Current accumulated rotation
 
     public float resetDelay = 3f;
-    private Vector3 initialPosition; // Initial position of the object
+
+    [System.Serializable]
+    public class ObjectState
+    {
+        public GameObject gameObject;
+        public Vector3 initialPosition;
+        public Quaternion initialRotation;
+    }
+
+    public ObjectState[] objectsToReset;
 
     // Start is called before the first frame update
     void Start()
     {
         isLoaded = true;
         UpdateWeightMass();
-        initialPosition = transform.position; // Record the initial position of the object
+        // Set the initial states for each GameObject in the array
+        SetInitialStates();
     }
 
     // Update is called once per frame
@@ -86,18 +97,27 @@ public class TrebuchetControl : MonoBehaviour
         currentRotation = targetRotation;
     }
 
+    public void SetInitialStates()
+    {
+        foreach (ObjectState objState in objectsToReset)
+        {
+            if (objState.gameObject != null)
+            {
+                objState.gameObject.transform.position = objState.initialPosition;
+                objState.gameObject.transform.rotation = objState.initialRotation;
+            }
+        }
+    }
+
     IEnumerator ResetTrebuchet()
     {
-        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        weight.transform.position = new Vector3(0, 3.35f, 1.29f);
-        weight.transform.rotation = Quaternion.Euler(0, 0, 0);
+        // Reset the object's position
+        SetInitialStates();
+        currentRotation = 0;
 
         weightRB.isKinematic = true;
 
         isLoaded = false;
-
-        // Reset the object's position
-        transform.position = initialPosition;
 
         // Wait for a specified delay before instantiating a new object
         yield return new WaitForSeconds(resetDelay);
