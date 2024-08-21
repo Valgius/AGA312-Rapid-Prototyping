@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RuneTriggerZone : MonoBehaviour
 {
+    public SpellbookManager spellbookManager;
+
     public GameObject deactiveRune;
     public GameObject activeRune;
 
@@ -47,6 +49,9 @@ public class RuneTriggerZone : MonoBehaviour
             activeRune.SetActive(true);
             deactiveRune.SetActive(false);
             isRuneActive = true;
+            spellbookManager.RuneTriggered();
         }
     }
+
+
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using TMPro;
 
 public class SpellbookManager : MonoBehaviour
 {
@@ -9,32 +10,58 @@ public class SpellbookManager : MonoBehaviour
     public GameObject barrier;
     public GameObject spellCircle;
 
-    public GameObject spellbookPanel;
-    private bool spellbokOpen;
-    public GameObject endGamePanel;
+    public int runesActivated;
+    public int maxRunes;
+    public TMP_Text runesText;
 
-    public int RunesActivated;
+    public bool hasSpellbook;
+
+    public GameObject endGamePanel;
+    public GameObject endGameTextPanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        spellbokOpen = false;
-        spellbook.SetActive(false);
-        spellbookPanel.SetActive(false);
+        //spellbook.SetActive(false);
         spellCircle.SetActive(false);
+        UpdateRunesText();
+        endGameTextPanel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            TriggerSpellBook();
+        if (runesActivated == maxRunes)
+        {
+            spellCircle.SetActive(true);
+        }
     }
 
-    public void TriggerSpellBook()
+    public void RuneTriggered()
     {
-        spellbokOpen = !spellbokOpen;
-        spellbookPanel.SetActive(spellbokOpen);
+        runesActivated++;
+        UpdateRunesText();
     }
 
+    public void SpellBookAcquired()
+    {
+        hasSpellbook = true;
+        spellbook.SetActive(true);
+    }
+
+    public void UpdateRunesText()
+    {
+        runesText.text = "Runes Activated: " + runesActivated + " / " + maxRunes;
+    }
+
+    public IEnumerator EndGame()
+    {
+        barrier.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        endGameTextPanel.SetActive(true);
+        yield return new WaitForSeconds(3);
+        endGameTextPanel.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        endGamePanel.SetActive(true);
+    }
 }
