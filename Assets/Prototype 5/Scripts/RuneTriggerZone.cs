@@ -43,7 +43,7 @@ public class RuneTriggerZone : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
+        if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isRuneActive)
         {
             print("activated Rune");
             activeRune.SetActive(true);
