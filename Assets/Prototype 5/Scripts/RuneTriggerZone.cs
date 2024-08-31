@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RuneTriggerZone : MonoBehaviour
@@ -10,6 +8,7 @@ public class RuneTriggerZone : MonoBehaviour
     public GameObject activeRune;
 
     public bool isRuneActive;
+    public bool isWizard;
 
     // Start is called before the first frame update
     void Start()
@@ -19,18 +18,14 @@ public class RuneTriggerZone : MonoBehaviour
         isRuneActive = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && !isRuneActive)
         {
             deactiveRune.SetActive(true);
         }
+        if (other.gameObject.CompareTag("Player") && isWizard)
+            StartCoroutine(spellbookManager.SpellBookAcquired());
     }
 
     private void OnTriggerExit(Collider other)
@@ -43,7 +38,7 @@ public class RuneTriggerZone : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isRuneActive)
+        if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E) && !isRuneActive && !isWizard)
         {
             print("activated Rune");
             activeRune.SetActive(true);
@@ -52,6 +47,4 @@ public class RuneTriggerZone : MonoBehaviour
             spellbookManager.RuneTriggered();
         }
     }
-
-
 }

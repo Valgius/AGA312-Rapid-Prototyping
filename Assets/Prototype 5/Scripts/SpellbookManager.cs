@@ -1,15 +1,17 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using TMPro;
 
 public class SpellbookManager : MonoBehaviour
 {
+    public ClueManager clueManager;
+
     public GameObject spellbook;
     public GameObject barrier;
     public GameObject spellCircle;
+    public GameObject wizardsLocation;
 
+    public GameObject runes;
     public int runesActivated;
     public int maxRunes;
     public TMP_Text runesText;
@@ -19,13 +21,20 @@ public class SpellbookManager : MonoBehaviour
     public GameObject endGamePanel;
     public GameObject endGameTextPanel;
 
+    public GameObject textBoxPanel;
+    public TMP_Text textBoxText;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        //spellbook.SetActive(false);
+        spellbook.SetActive(false);
         spellCircle.SetActive(false);
         UpdateRunesText();
         endGameTextPanel.SetActive(false);
+        textBoxPanel.SetActive(false);
+        runes.SetActive(false);
+        runesText.text = " ";
     }
 
     // Update is called once per frame
@@ -43,10 +52,23 @@ public class SpellbookManager : MonoBehaviour
         UpdateRunesText();
     }
 
-    public void SpellBookAcquired()
+    public IEnumerator SpellBookAcquired()
     {
+
+        yield return new WaitForSeconds(0.5f);
+        textBoxPanel.SetActive(true);
+        textBoxText.text = "You have found the wizard's grave, his spell book is yours";
+        yield return new WaitForSeconds(3f);
+        textBoxText.text = "It speaks of a ritual that must be performed";
+        yield return new WaitForSeconds(3f);
+        textBoxText.text = "Use the book to activate the three runes then cast the final spell in the circle";
+        yield return new WaitForSeconds(3f);
+        textBoxPanel.SetActive(false);
         hasSpellbook = true;
         spellbook.SetActive(true);
+        wizardsLocation.SetActive(false);
+        clueManager.ChangeInstructions();
+        runes.SetActive(true);
     }
 
     public void UpdateRunesText()
