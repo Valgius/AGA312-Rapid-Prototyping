@@ -28,12 +28,8 @@ public class SpellbookManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spellbook.SetActive(false);
         spellCircle.SetActive(false);
         UpdateRunesText();
-        endGameTextPanel.SetActive(false);
-        textBoxPanel.SetActive(false);
-        runes.SetActive(false);
         runesText.text = " ";
     }
 
@@ -58,11 +54,13 @@ public class SpellbookManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         textBoxPanel.SetActive(true);
         textBoxText.text = "You have found the wizard's grave, his spell book is yours";
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         textBoxText.text = "It speaks of a ritual that must be performed";
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         textBoxText.text = "Use the book to activate the three runes then cast the final spell in the circle";
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
+        textBoxText.text = "He has left hints to find these runes in your clue page";
+        yield return new WaitForSeconds(2f);
         textBoxPanel.SetActive(false);
         hasSpellbook = true;
         spellbook.SetActive(true);

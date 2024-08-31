@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum clues { Wizard, first, second, third}
-
 public class ClueManager : MonoBehaviour
 {
     public GameObject cluesPanel;
@@ -24,7 +22,7 @@ public class ClueManager : MonoBehaviour
         secondRune.SetActive(false);
         thirdRune.SetActive(false);
         cluesOpen = false;
-        instructionsText.text = "Press R to Open Clue page.";
+        instructionsText.text = "Press Space to Toggle Lanturn\nPress R to Open Clue page.";
     }
 
     // Update is called once per frame
@@ -42,7 +40,7 @@ public class ClueManager : MonoBehaviour
 
     public void ChangeInstructions()
     {
-        instructionsText.text = "Press R to Open Clue page.\nPress E to use Spell Book ";
+        instructionsText.text = "Press Space to Toggle Lanturn\nPress R to Open Clue page.\nPress E to use Spell Book ";
         firstRune.SetActive(true);
         secondRune.SetActive(true);
         thirdRune.SetActive(true);
