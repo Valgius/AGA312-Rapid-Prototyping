@@ -10,6 +10,7 @@ public class SpellbookManager : MonoBehaviour
     public GameObject barrier;
     public GameObject spellCircle;
     public GameObject wizardsLocation;
+    public GameObject monsterGlow;
 
     public GameObject runes;
     public int runesActivated;
@@ -23,6 +24,7 @@ public class SpellbookManager : MonoBehaviour
 
     public GameObject textBoxPanel;
     public TMP_Text textBoxText;
+    public TMP_Text goalText;
 
 
     // Start is called before the first frame update
@@ -67,6 +69,7 @@ public class SpellbookManager : MonoBehaviour
         wizardsLocation.SetActive(false);
         clueManager.ChangeInstructions();
         runes.SetActive(true);
+        goalText.text = "Activate the three runes";
     }
 
     public void UpdateRunesText()
@@ -78,6 +81,9 @@ public class SpellbookManager : MonoBehaviour
     {
         barrier.SetActive(false);
         yield return new WaitForSeconds(0.5f);
+        monsterGlow.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        goalText.text = "Submit";
         endGameTextPanel.SetActive(true);
         yield return new WaitForSeconds(3);
         endGameTextPanel.SetActive(false);
